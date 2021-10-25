@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "tourist-information-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/touristInformation/TouristInformationWebPart.js",
+          "manifest": "./src/webparts/touristInformation/TouristInformationWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "TouristInformationWebPartStrings": "lib/webparts/touristInformation/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+  }
+}
