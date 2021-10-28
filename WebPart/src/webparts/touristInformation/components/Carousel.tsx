@@ -4,52 +4,53 @@ import {
   CarouselButtonsDisplay,
   CarouselIndicatorShape,
 } from "@pnp/spfx-controls-react/lib/Carousel";
-import styles from "./TouristInformation.module.scss";
 import * as React from "react";
-export default class CarouselComponent extends React.Component {
+import { ICarouselStates } from "./ICarouselStates";
+import { ICaraouselProps } from "./ICaraouselProps";
+import { SPService } from "../../../Services/SPService";
+import { ImageFit } from "office-ui-fabric-react";
+import styles from "./TouristInformation.module.scss";
+export default class CarouselComponent extends React.Component<
+  ICaraouselProps,
+  ICarouselStates
+> {
+  private _services: SPService = null;
+  constructor(props) {
+    super(props);
+    this.state = {
+      caraouselItems: [],
+    };
+    /** Bind service using current context */
+    this._services = new SPService(this.props.context);
+  }
+  public componentDidMount() {
+    this.getListItems();
+  }
+  private async getListItems() {
+    let items = await this._services.getCityDetailedData(
+      this.props.cityName,
+      "Religious Places"
+    );
+    let carouselItemsMapping = items.map((value) => ({
+      imageSrc: JSON.parse(value["DestinationPicture"]).serverRelativeUrl,
+      title: value.Place,
+      url: JSON.parse(value["DestinationPicture"]).serverRelativeUrl,
+      imageFit: ImageFit.cover,
+    }));
+    this.setState({ caraouselItems: carouselItemsMapping });
+  }
+
   render() {
     return (
       <Carousel
         buttonsLocation={CarouselButtonsLocation.center}
         buttonsDisplay={CarouselButtonsDisplay.buttonsOnly}
-        isInfinite={true}
-        indicatorShape={CarouselIndicatorShape.circle}
+        contentContainerStyles={styles.carouselContent}
+        isInfinite={false}
+        indicatorShape={CarouselIndicatorShape.rectangle}
         pauseOnHover={true}
-        element={[
-          {
-            imageSrc:
-              "https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3078&q=80",
-            title: "Colosseum",
-            description: "This is Colosseum",
-            url: "https://en.wikipedia.org/wiki/Colosseum",
-            showDetailsOnHover: true,
-            // imageFit: ImageFit.cover,
-          },
-          {
-            imageSrc:
-              "https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3078&q=80",
-            title: "Colosseum",
-            description: "This is Colosseum",
-            url: "https://en.wikipedia.org/wiki/Colosseum",
-            showDetailsOnHover: true,
-            // imageFit: ImageFit.cover,
-          },
-          {
-            imageSrc:
-              "https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3078&q=80",
-            title: "Colosseum",
-            description: "This is Colosseum",
-            url: "https://en.wikipedia.org/wiki/Colosseum",
-            showDetailsOnHover: true,
-            // imageFit:,
-          },
-        ]}
-        onMoveNextClicked={(index: number) => {
-          console.log(`Next button clicked: ${index}`);
-        }}
-        onMovePrevClicked={(index: number) => {
-          console.log(`Prev button clicked: ${index}`);
-        }}
+        element={this.state.caraouselItems}
+        containerButtonsStyles={styles.carouselButtonsContainer}
       />
     );
   }

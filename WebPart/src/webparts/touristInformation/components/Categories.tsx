@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Accordion } from "@pnp/spfx-controls-react/lib/Accordion";
 import { SPService } from "../../../Services/SPService";
-import { IAccordionCompProps } from "./ICategoriesProps";
-import { IAccodrionCompStates } from "./ICategoriesStates";
+import { ICategoriesProps } from "./ICategoriesProps";
+import { ICategoriesStates } from "./ICategoriesStates";
 import DynamicTable from "./DynamicTable";
 import RichTextComponent from "./RichTextComponent";
 import CarouselComponent from "./Carousel";
 
 export class Categories extends React.Component<
-  IAccordionCompProps,
-  IAccodrionCompStates,
+  ICategoriesProps,
+  ICategoriesStates,
   {}
 > {
   private _services: SPService = null;
@@ -73,7 +73,14 @@ export class Categories extends React.Component<
                 );
               } else if (item.DataType == "Links") {
               } else {
-                return <CarouselComponent />;
+                return (
+                  <CarouselComponent
+                    context={this.props.context}
+                    cityName={this.props.cityName}
+                    category={item.Title}
+                    cityId={this.props.cityId}
+                  />
+                );
               }
             })()}
           </div>

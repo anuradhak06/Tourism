@@ -1,19 +1,19 @@
 import * as React from "react";
 import styles from "./TouristInformation.module.scss";
-import { ITouristInformationProps } from "./ITouristInformationProps";
-import { ITouristInformationStates } from "./ITouristInformationStates";
+import { IStatesProps } from "./IStatesProps";
+import { IStatesStates } from "./IStatesStates";
 import { escape } from "@microsoft/sp-lodash-subset";
 import { SPService } from "../../../Services/SPService";
 import { Accordion } from "@pnp/spfx-controls-react/lib/Accordion";
-import TabsComponent from "./Tabs";
+import TabsComponent from "./Cities";
 
-export default class TouristInformation extends React.Component<
-  ITouristInformationProps,
-  ITouristInformationStates,
+export default class States extends React.Component<
+  IStatesProps,
+  IStatesStates,
   {}
 > {
   private _services: SPService = null;
-  constructor(props: ITouristInformationProps) {
+  constructor(props: IStatesProps) {
     super(props);
     this.state = {
       listItems: [],
@@ -54,7 +54,7 @@ export default class TouristInformation extends React.Component<
       newState: event.target.value,
     });
   };
-  public render(): React.ReactElement<ITouristInformationProps> {
+  public render(): React.ReactElement<IStatesProps> {
     return (
       <div className={styles.touristInformation}>
         {

@@ -5,7 +5,7 @@ interface IListItem {
   DataType: string;
 }
 
-export interface IAccodrionCompStates {
+export interface ICategoriesStates {
   listItems: IListItem[];
   errorMessage: string;
   Id?: number;

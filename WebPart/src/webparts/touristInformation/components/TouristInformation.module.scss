@@ -1,6 +1,27 @@
 @import "~office-ui-fabric-react/dist/sass/References.scss";
 
 .touristInformation {
+  .carouselContent {
+    height: 500px !important;
+  }
+
+  div[class^="details"] {
+    top: 80% !important;
+
+    span {
+      font-size: 15px !important;
+    }
+
+    span[class^="title"] {
+      font-size: 20px !important;
+      color: white;
+      text-align: center;
+    }
+  }
+
+  .carouselButtonsContainer button {
+    min-width: 32px !important;
+  }
   .container {
     max-width: 700px;
     margin: 0px auto;

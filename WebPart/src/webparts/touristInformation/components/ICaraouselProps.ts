@@ -1,7 +1,8 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-export interface ICategoriesProps {
+
+export interface ICaraouselProps {
   context: WebPartContext;
-  cityId: number;
-  stateId: string;
   cityName: string;
+  category: string;
+  cityId: number;
 }

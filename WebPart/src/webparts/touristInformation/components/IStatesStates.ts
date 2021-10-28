@@ -3,7 +3,7 @@ interface IListItem {
   Title: string;
 }
 
-export interface ITouristInformationStates {
+export interface IStatesStates {
   listItems: IListItem[];
   errorMessage: string;
   newState: string;

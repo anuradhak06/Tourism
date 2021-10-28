@@ -1,6 +1,8 @@
-export interface IListItem {
-  Title: string;
+export interface ICitiesState {
+  newCity: string;
+  cities: ICity[];
 }
-export interface ICities {
-  cities: string[];
+export interface ICity {
+  Title: string;
+  Id?: number;
 }

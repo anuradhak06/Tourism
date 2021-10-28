@@ -1,6 +1,5 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp/presets/all";
-import { IListItem } from "../webparts/touristInformation/components/ICitiesStates";
 import { ICamlQuery } from "@pnp/sp/lists";
 import { myConstants } from "./Constants";
 
@@ -61,11 +60,12 @@ export class SPService {
     }
   }
 
-  public async getTableData(cityName: string, category: string) {
+  public async getCityDetailedData(cityName: string, category: string) {
     try {
       const caml: ICamlQuery = {
-        ViewXml:
-          "<View><ViewFields><FieldRef Name='Id' /><FieldRef Name='Place' /><FieldRef Name='Description' /></ViewFields></View>",
+        ViewXml: `<View><ViewFields><FieldRef Name='Id' /><FieldRef Name='Destination Picture' />
+         
+          <FieldRef Name='Place' /><FieldRef Name='Description' /></ViewFields></View>`,
       };
       let query = `<View>
         <Query>
@@ -93,38 +93,38 @@ export class SPService {
       Promise.reject(err);
     }
   }
-  public async getRichTextData(cityName: string, category: string) {
-    try {
-      const caml: ICamlQuery = {
-        ViewXml:
-          "<View><ViewFields><FieldRef Name='ID' /><FieldRef Name='Description' /></ViewFields></View>",
-      };
-      let query = `<View>
-        <Query>
-          <Where>
-          <And>
-            <Eq>
-              <FieldRef Name='City'/>
-              <Value Type='Text'>${cityName}</Value>
-            </Eq>
-            <Eq>
-              <FieldRef Name='Category'/>
-              <Value Type='Text'>${category}</Value>
-            </Eq>
-            </And>
-          </Where>
-         </Query>
-      </View>`;
-      let listItem: any = await sp.web.lists
-        .getByTitle(myConstants.INFORMATION_LIST)
-        .getItemsByCAMLQuery({
-          ViewXml: query,
-        });
-      return listItem;
-    } catch (err) {
-      Promise.reject(err);
-    }
-  }
+  // public async getRichTextData(cityName: string, category: string) {
+  //   try {
+  //     const caml: ICamlQuery = {
+  //       ViewXml:
+  //         "<View><ViewFields><FieldRef Name='ID' /><FieldRef Name='Description' /></ViewFields></View>",
+  //     };
+  //     let query = `<View>
+  //       <Query>
+  //         <Where>
+  //         <And>
+  //           <Eq>
+  //             <FieldRef Name='City'/>
+  //             <Value Type='Text'>${cityName}</Value>
+  //           </Eq>
+  //           <Eq>
+  //             <FieldRef Name='Category'/>
+  //             <Value Type='Text'>${category}</Value>
+  //           </Eq>
+  //           </And>
+  //         </Where>
+  //        </Query>
+  //     </View>`;
+  //     let listItem: any = await sp.web.lists
+  //       .getByTitle(myConstants.INFORMATION_LIST)
+  //       .getItemsByCAMLQuery({
+  //         ViewXml: query,
+  //       });
+  //     return listItem;
+  //   } catch (err) {
+  //     Promise.reject(err);
+  //   }
+  // }
 
   public async AddState(state: string) {
     try {

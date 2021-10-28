@@ -28,7 +28,7 @@ export default class DynamicTable extends React.Component<
   }
 
   private async getListItems() {
-    let items = await this._services.getTableData(
+    let items = await this._services.getCityDetailedData(
       this.props.cityName,
       this.props.category
     );

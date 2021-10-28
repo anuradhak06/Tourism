@@ -21,7 +21,7 @@ export default class RichTextComponent extends React.Component<
   }
 
   private async getListItems() {
-    let items = await this._services.getRichTextData(
+    let items = await this._services.getCityDetailedData(
       this.props.cityName,
       this.props.category
     );

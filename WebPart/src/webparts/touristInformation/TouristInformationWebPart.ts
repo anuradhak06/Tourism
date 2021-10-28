@@ -8,8 +8,8 @@ import {
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 
 import * as strings from "TouristInformationWebPartStrings";
-import TouristInformation from "./components/TouristInformation";
-import { ITouristInformationProps } from "./components/ITouristInformationProps";
+import TouristInformation from "./components/States";
+import { IStatesProps } from "./components/IStatesProps";
 
 export interface ITouristInformationWebPartProps {
   description: string;
@@ -17,12 +17,14 @@ export interface ITouristInformationWebPartProps {
 
 export default class TouristInformationWebPart extends BaseClientSideWebPart<ITouristInformationWebPartProps> {
   public render(): void {
-    const element: React.ReactElement<ITouristInformationProps> =
-      React.createElement(TouristInformation, {
+    const element: React.ReactElement<IStatesProps> = React.createElement(
+      TouristInformation,
+      {
         description: this.properties.description,
         listName: "States",
         context: this.context,
-      });
+      }
+    );
 
     ReactDom.render(element, this.domElement);
   }
